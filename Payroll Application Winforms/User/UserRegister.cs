@@ -12,6 +12,7 @@ namespace Payroll_Application_Winforms.User
 {
     public partial class UserRegister : Form
     {
+        Connection conn = new Connection();
         public UserRegister()
         {
             InitializeComponent();
@@ -48,6 +49,36 @@ namespace Payroll_Application_Winforms.User
                 errorProvider1.Clear();
                 errorProvider1.SetError(txtName, "Name Required");
             }
+            else if (string.IsNullOrEmpty(txtUsername.Text))
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtUsername, "Username Required");
+            }
+            else if (string.IsNullOrEmpty(txtPassword.Text))
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtPassword, "Password Required");
+            }
+            else if (txtPassword.Text.Length < 4)
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtPassword, "Password must be of greater than 3 length");
+            }
+            else if (string.IsNullOrEmpty(txtEmail.Text))
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtEmail, "Email Required");
+            }
+            else if (string.IsNullOrEmpty(txtDOB.Text))
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtDOB, "DOB Required");
+            }
+            else if (txtRole.SelectedIndex == -1)
+            {
+                errorProvider1.Clear();
+                errorProvider1.SetError(txtRole, "Role Required");
+            }
             else
             {
                 result = true;
@@ -60,7 +91,6 @@ namespace Payroll_Application_Winforms.User
         {
             if (Validation())
             {
-                Connection conn = new Connection();
                 conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + txtName.Text + "','" + txtEmail.Text + "','" + txtUsername.Text + "','" + txtPassword.Text + "','" + txtRole.Text + "','" + txtDOB.Value.ToString("dd/MM/yyyy") + "','" + txtAddress.Text + "')");
                 MessageBox.Show("Record saved successfully");
                 ClearData();
@@ -70,7 +100,6 @@ namespace Payroll_Application_Winforms.User
 
         private void LoadData()
         {
-            Connection conn = new Connection();
             conn.dataGet("select * from dbo.[User]");
             DataTable dataTable = new DataTable();
             conn.sda.Fill(dataTable);
@@ -116,9 +145,8 @@ namespace Payroll_Application_Winforms.User
             DialogResult result = MessageBox.Show("Are you sure?", "Update", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                Connection conn = new Connection();
                 // update by email
-                conn.dataSend("UPDATE [User] SET Username ='"+txtUsername.Text+ "', Name ='" + txtName.Text+ "', Password ='"+txtPassword.Text+ "', DOB ='"+txtDOB.Value.ToString("dd/MM/yyyy")+"', Role ='" + txtRole.Text+"', Address ='" + txtAddress.Text+"' where Email = '"+txtEmail.Text+"'");
+                conn.dataSend("UPDATE [User] SET Username ='"+txtUsername.Text+ "', Name ='" + txtName.Text+ "', DOB ='"+txtDOB.Value.ToString("dd/MM/yyyy")+"', Role ='" + txtRole.Text+"', Address ='" + txtAddress.Text+"' where Email = '"+txtEmail.Text+"'");
                 MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearData();
                 LoadData();
@@ -133,7 +161,6 @@ namespace Payroll_Application_Winforms.User
             DialogResult result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                Connection conn = new Connection();
                 conn.dataSend("DELETE from [User] where Username = '" + txtUsername.Text + "' or Email ='" + txtEmail.Text + "'");
                 MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearData();
@@ -141,6 +168,38 @@ namespace Payroll_Application_Winforms.User
                 btnSave.Enabled = true;
                 btnDelete.Enabled = false;
                 btnUpdate.Enabled = false;
+            }
+        }
+
+        private void keyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (txtName.Text.Length > 0)
+                {
+                    txtUsername.Focus();
+                }
+                if (txtUsername.Text.Length > 0)
+                {
+                    txtPassword.Focus();
+                }
+                if (txtPassword.Text.Length > 0)
+                {
+                    txtEmail.Focus();
+                }
+                if (txtEmail.Text.Length > 0)
+                {
+                    txtRole.Focus();
+                }
+                if (txtRole.Text.Length > 0)
+                {
+                    txtAddress.Focus();
+                }
+                if (txtAddress.Text.Length > 0)
+                {
+                    btnSave.Focus();
+                }
+
             }
         }
     }

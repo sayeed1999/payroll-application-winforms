@@ -16,7 +16,7 @@ namespace Payroll_Application_Winforms
 
         public void connection()
         {
-            conn = new SqlConnection(@"Data Source=DESKTOP-PMBUO9G\SQLEXPRESS;Initial Catalog=MiniPayroll;Integrated Security=True");
+            conn = new SqlConnection(@"Data Source=SAYEED_1999;Initial Catalog=MiniPayroll;Integrated Security=True");
             conn.Open();
         }
 

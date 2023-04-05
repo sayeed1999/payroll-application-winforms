@@ -40,5 +40,13 @@ namespace Payroll_Application_Winforms
                 MessageBox.Show("Invalid Username & Password.");
             }
         }
+
+        private void changePasswordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            User.ChangePassword form = new User.ChangePassword();
+            form.MdiParent = this;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Show();
+        }
     }
 }

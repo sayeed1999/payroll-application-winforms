@@ -40,5 +40,13 @@ namespace Payroll_Application_Winforms
                 e.Cancel = true;
             }
         }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            User.ChangePassword form = new User.ChangePassword();
+            form.MdiParent = this;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Show();
+        }
     }
 }

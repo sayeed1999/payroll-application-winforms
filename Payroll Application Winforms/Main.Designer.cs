@@ -59,15 +59,16 @@
             // userRegisterToolStripMenuItem
             // 
             this.userRegisterToolStripMenuItem.Name = "userRegisterToolStripMenuItem";
-            this.userRegisterToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
+            this.userRegisterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.userRegisterToolStripMenuItem.Text = "User Register";
             this.userRegisterToolStripMenuItem.Click += new System.EventHandler(this.userRegisterToolStripMenuItem_Click);
             // 
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.changePasswordToolStripMenuItem.Text = "Change Password";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
             // 
             // Main
             // 

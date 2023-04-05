@@ -107,6 +107,7 @@
             this.changePasswordLink.TabIndex = 6;
             this.changePasswordLink.TabStop = true;
             this.changePasswordLink.Text = "Change Password";
+            this.changePasswordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changePasswordLink_LinkClicked);
             // 
             // Login
             // 

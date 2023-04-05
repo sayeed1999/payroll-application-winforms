@@ -75,6 +75,7 @@ namespace Payroll_Application_Winforms.User
             DataTable dataTable = new DataTable();
             conn.sda.Fill(dataTable);
             int count = 0;
+            dataGridView1.Rows.Clear();
             foreach (DataRow row in dataTable.Rows)
             {
                 int index = dataGridView1.Rows.Add();
@@ -97,6 +98,8 @@ namespace Payroll_Application_Winforms.User
 
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count <= 0) return;
+
             txtName.Text = dataGridView1.SelectedRows[0].Cells["Name"].Value.ToString();
             txtUsername.Text = dataGridView1.SelectedRows[0].Cells["Username"].Value.ToString();
             txtEmail.Text = dataGridView1.SelectedRows[0].Cells["Email"].Value.ToString();
@@ -106,6 +109,39 @@ namespace Payroll_Application_Winforms.User
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure?", "Update", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                Connection conn = new Connection();
+                // update by email
+                conn.dataSend("UPDATE [User] SET Username ='"+txtUsername.Text+ "', Name ='" + txtName.Text+ "', Password ='"+txtPassword.Text+ "', DOB ='"+txtDOB.Value.ToString("dd/MM/yyyy")+"', Role ='" + txtRole.Text+"', Address ='" + txtAddress.Text+"' where Email = '"+txtEmail.Text+"'");
+                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearData();
+                LoadData();
+                btnSave.Enabled = true;
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                Connection conn = new Connection();
+                conn.dataSend("DELETE from [User] where Username = '" + txtUsername.Text + "' or Email ='" + txtEmail.Text + "'");
+                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearData();
+                LoadData();
+                btnSave.Enabled = true;
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+            }
         }
     }
 }

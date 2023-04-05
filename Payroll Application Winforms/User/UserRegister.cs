@@ -19,6 +19,7 @@ namespace Payroll_Application_Winforms.User
 
         private void UserRegister_Load(object sender, EventArgs e)
         {
+            LoadData();
             //this.ActiveControl = this;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
@@ -87,6 +88,24 @@ namespace Payroll_Application_Winforms.User
                 dataGridView1.Rows[index].Cells["Address"].Value = row["Address"].ToString();
                 dataGridView1.Rows[index].Cells["DOB"].Value = String.IsNullOrEmpty(row["DOB"].ToString()) ? "" : Convert.ToDateTime(row["DOB"].ToString()).ToString("dd/MM/yyyy");
             }
+        }
+
+        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            txtName.Text = dataGridView1.SelectedRows[0].Cells["Name"].Value.ToString();
+            txtUsername.Text = dataGridView1.SelectedRows[0].Cells["Username"].Value.ToString();
+            txtEmail.Text = dataGridView1.SelectedRows[0].Cells["Email"].Value.ToString();
+            txtAddress.Text = dataGridView1.SelectedRows[0].Cells["Address"].Value.ToString();
+            txtDOB.Text = dataGridView1.SelectedRows[0].Cells["DOB"].Value.ToString();
+            txtRole.Text = dataGridView1.SelectedRows[0].Cells["Role"].Value.ToString();
+            btnSave.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
         }
     }
 }

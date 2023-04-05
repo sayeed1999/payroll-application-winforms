@@ -24,5 +24,21 @@ namespace Payroll_Application_Winforms
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
+
+        bool close = true;
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (close != true) return;
+            DialogResult result = MessageBox.Show("Are you sure want to quit?", "Exit", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                close = false;
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
     }
 }

@@ -59,14 +59,14 @@
             // userRegisterToolStripMenuItem
             // 
             this.userRegisterToolStripMenuItem.Name = "userRegisterToolStripMenuItem";
-            this.userRegisterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.userRegisterToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
             this.userRegisterToolStripMenuItem.Text = "User Register";
             this.userRegisterToolStripMenuItem.Click += new System.EventHandler(this.userRegisterToolStripMenuItem_Click);
             // 
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(254, 34);
             this.changePasswordToolStripMenuItem.Text = "Change Password";
             // 
             // Main
@@ -80,6 +80,7 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Payroll Management";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

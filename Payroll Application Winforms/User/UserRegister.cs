@@ -63,6 +63,29 @@ namespace Payroll_Application_Winforms.User
                 conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + txtName.Text + "','" + txtEmail.Text + "','" + txtUsername.Text + "','" + txtPassword.Text + "','" + txtRole.Text + "','" + txtDOB.Value.ToString("dd/MM/yyyy") + "','" + txtAddress.Text + "')");
                 MessageBox.Show("Record saved successfully");
                 ClearData();
+                LoadData();
+            }
+        }
+
+        private void LoadData()
+        {
+            Connection conn = new Connection();
+            conn.dataGet("select * from dbo.[User]");
+            DataTable dataTable = new DataTable();
+            conn.sda.Fill(dataTable);
+            int count = 0;
+            foreach (DataRow row in dataTable.Rows)
+            {
+                int index = dataGridView1.Rows.Add();
+
+                dataGridView1.Rows[index].Cells["Sl"].Value = ++count;
+                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
+                dataGridView1.Rows[index].Cells["Username"].Value = row["Username"].ToString();
+                dataGridView1.Rows[index].Cells["Email"].Value = row["Email"].ToString();
+                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
+                dataGridView1.Rows[index].Cells["Role"].Value = row["Role"].ToString();
+                dataGridView1.Rows[index].Cells["Address"].Value = row["Address"].ToString();
+                dataGridView1.Rows[index].Cells["DOB"].Value = String.IsNullOrEmpty(row["DOB"].ToString()) ? "" : Convert.ToDateTime(row["DOB"].ToString()).ToString("dd/MM/yyyy");
             }
         }
     }

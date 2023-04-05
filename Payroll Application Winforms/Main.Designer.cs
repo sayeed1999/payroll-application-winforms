@@ -61,6 +61,7 @@
             this.userRegisterToolStripMenuItem.Name = "userRegisterToolStripMenuItem";
             this.userRegisterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.userRegisterToolStripMenuItem.Text = "User Register";
+            this.userRegisterToolStripMenuItem.Click += new System.EventHandler(this.userRegisterToolStripMenuItem_Click);
             // 
             // changePasswordToolStripMenuItem
             // 
@@ -79,7 +80,6 @@
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Payroll Management";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

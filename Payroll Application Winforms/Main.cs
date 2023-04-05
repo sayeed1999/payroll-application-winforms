@@ -16,5 +16,13 @@ namespace Payroll_Application_Winforms
         {
             InitializeComponent();
         }
+
+        private void userRegisterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            User.UserRegister form = new User.UserRegister();
+            form.MdiParent = this;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Show();
+        }
     }
 }

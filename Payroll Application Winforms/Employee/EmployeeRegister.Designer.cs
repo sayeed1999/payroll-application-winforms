@@ -74,6 +74,7 @@
             this.btnUpdate.TabIndex = 34;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -85,6 +86,7 @@
             this.btnDelete.TabIndex = 35;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnSave
             // 
@@ -315,12 +317,13 @@
             this.DOB,
             this.BankDetails,
             this.Address});
-            this.dataGridView2.Location = new System.Drawing.Point(36, 352);
+            this.dataGridView2.Location = new System.Drawing.Point(206, 352);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.RowTemplate.Height = 28;
             this.dataGridView2.Size = new System.Drawing.Size(1263, 289);
             this.dataGridView2.TabIndex = 49;
+            this.dataGridView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mouseDoubleClick);
             // 
             // EmpId
             // 

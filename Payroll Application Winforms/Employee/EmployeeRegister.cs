@@ -162,5 +162,42 @@ namespace Payroll_Application_Winforms.Employee
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
         }
+
+        private void mouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (dataGridView2.SelectedRows.Count <= 0) return;
+
+            txtName.Text = dataGridView2.SelectedRows[0].Cells["Name"].Value.ToString();
+            txtEmail.Text = dataGridView2.SelectedRows[0].Cells["Email"].Value.ToString();
+            txtMobile.Text = dataGridView2.SelectedRows[0].Cells["Mobile"].Value.ToString();
+            txtEmail.ReadOnly = true;
+            btnSave.Enabled = false;
+            btnUpdate.Enabled = true;
+            btnDelete.Enabled = true;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            conn.dataSend("Update Employee set name = '"  + txtName.Text + "' where email = '" + txtEmail.Text + "'");
+            MessageBox.Show("Record updated successfully", "Information", MessageBoxButtons.OK);
+            ClearData();
+            LoadData();
+            txtEmail.ReadOnly = false;
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled =  false;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            conn.dataSend("delete from Employee where email = '" + txtEmail.Text + "'");
+            MessageBox.Show("Record deleted successfully", "Information", MessageBoxButtons.OK);
+            ClearData();
+            LoadData();
+            txtEmail.ReadOnly = false;
+            btnSave.Enabled = true;
+            btnUpdate.Enabled = false;
+            btnDelete.Enabled = false;
+        }
     }
 }

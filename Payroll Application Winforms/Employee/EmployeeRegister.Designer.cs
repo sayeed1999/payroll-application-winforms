@@ -232,6 +232,7 @@
             this.txtEmpId.Location = new System.Drawing.Point(529, 31);
             this.txtEmpId.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtEmpId.Name = "txtEmpId";
+            this.txtEmpId.ReadOnly = true;
             this.txtEmpId.Size = new System.Drawing.Size(327, 35);
             this.txtEmpId.TabIndex = 37;
             // 
@@ -400,6 +401,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
+            this.Name = "EmployeeRegister";
             this.Text = "Employee Register";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

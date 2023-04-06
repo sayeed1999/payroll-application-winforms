@@ -96,6 +96,7 @@
             this.btnSave.TabIndex = 33;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtDOB
             // 
@@ -406,8 +407,9 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
- 
+            this.Name = "EmployeeRegister";
             this.Text = "Employee Register";
+            this.Load += new System.EventHandler(this.EmployeeRegister_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);

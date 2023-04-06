@@ -53,6 +53,7 @@
             this.pictureLabel = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.EmpId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.File = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mobile = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -310,6 +311,7 @@
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EmpId,
+            this.File,
             this.Name,
             this.Email,
             this.Mobile,
@@ -317,11 +319,11 @@
             this.DOB,
             this.BankDetails,
             this.Address});
-            this.dataGridView2.Location = new System.Drawing.Point(206, 352);
+            this.dataGridView2.Location = new System.Drawing.Point(16, 352);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.RowTemplate.Height = 28;
-            this.dataGridView2.Size = new System.Drawing.Size(1263, 289);
+            this.dataGridView2.Size = new System.Drawing.Size(1306, 289);
             this.dataGridView2.TabIndex = 49;
             this.dataGridView2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.mouseDoubleClick);
             // 
@@ -331,6 +333,13 @@
             this.EmpId.MinimumWidth = 8;
             this.EmpId.Name = "EmpId";
             this.EmpId.Width = 150;
+            // 
+            // File
+            // 
+            this.File.HeaderText = "Picture Location";
+            this.File.MinimumWidth = 8;
+            this.File.Name = "File";
+            this.File.Width = 150;
             // 
             // Name
             // 
@@ -447,6 +456,7 @@
         private System.Windows.Forms.Label pictureLabel;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn EmpId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn File;
         private System.Windows.Forms.DataGridViewTextBoxColumn Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Mobile;

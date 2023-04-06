@@ -137,6 +137,9 @@ namespace Payroll_Application_Winforms.Employee
             txtMobile.Clear();
             txtName.Clear();
             txtPanNo.Clear();
+            pictureBox.Image = null;
+            pictureLabel.Text = "No image selected";
+            fileName = null;
         }
 
         private void LoadData()
@@ -153,6 +156,7 @@ namespace Payroll_Application_Winforms.Employee
                 dataGridView2.Rows[n].Cells["Name"].Value = row["Name"].ToString();
                 dataGridView2.Rows[n].Cells["Email"].Value = row["Email"].ToString();
                 dataGridView2.Rows[n].Cells["Mobile"].Value = row["Mobile"].ToString();
+                dataGridView2.Rows[n].Cells["File"].Value = row["FileName"].ToString();
             }
         }
 
@@ -170,6 +174,17 @@ namespace Payroll_Application_Winforms.Employee
             txtName.Text = dataGridView2.SelectedRows[0].Cells["Name"].Value.ToString();
             txtEmail.Text = dataGridView2.SelectedRows[0].Cells["Email"].Value.ToString();
             txtMobile.Text = dataGridView2.SelectedRows[0].Cells["Mobile"].Value.ToString();
+            fileName = dataGridView2.SelectedRows[0].Cells["File"].Value.ToString();
+            if (!String.IsNullOrEmpty(fileName))
+            {
+                pictureBox.Image = Image.FromFile(fileName);
+                pictureLabel.Text = fileName;
+            }
+            else
+            {
+                pictureBox.Image = null;
+                pictureLabel.Text = "No image found";
+            }
             txtEmail.ReadOnly = true;
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
@@ -178,7 +193,7 @@ namespace Payroll_Application_Winforms.Employee
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            conn.dataSend("Update Employee set name = '"  + txtName.Text + "' where email = '" + txtEmail.Text + "'");
+            conn.dataSend("Update Employee set Name = '"  + txtName.Text + "', FileName = '" + fileName + "', ImageData = '" + ConvertImageToBinary(pictureBox.Image) + "' where email = '" + txtEmail.Text + "'");
             MessageBox.Show("Record updated successfully", "Information", MessageBoxButtons.OK);
             ClearData();
             LoadData();

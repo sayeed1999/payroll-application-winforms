@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -87,7 +88,25 @@ namespace Payroll_Application_Winforms.Employee
             }
         }
 
-        private bool IsValid() => !String.IsNullOrEmpty(txtEmail.Text);
+        private bool IsValid()
+        {
+            bool ret = true;
+            if (String.IsNullOrEmpty(txtEmail.Text))
+            {
+                errorProvider1.SetError(this.txtEmail, "Email required!");
+                ret = false;
+            }
+            else if (!Regex.Match(txtEmail.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$").Success)
+            {
+                errorProvider1.SetError(this.txtEmail, "Email not valid!");
+                ret = false;
+            }
+            else
+            {
+                errorProvider1.Clear();
+            }
+            return ret;
+        }
 
         private bool IfEmployeeExists(string email)
         {
@@ -109,11 +128,7 @@ namespace Payroll_Application_Winforms.Employee
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (!IsValid())
-            {
-                MessageBox.Show("Email Required", "Validation Error", MessageBoxButtons.OK);
-                return;
-            }
+            if (!IsValid()) return;
 
             if (IfEmployeeExists(txtEmail.Text))
             {

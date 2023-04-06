@@ -43,5 +43,56 @@ namespace Payroll_Application_Winforms.Employee
             pictureLabel.Text = "Not selected";
             pictureBox.Image = null;
         }
+
+        public static Control FindFocusedControl(Control control)
+        {
+            var container = control as IContainerControl;
+            while (container != null)
+            {
+                control = container.ActiveControl;
+                container = control as IContainerControl;
+            }
+            return control;
+        }
+
+        private void keyUpName(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtMobile.Focus();
+            }
+        }
+
+        private void keyUpMobile(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtEmail.Focus();
+            }
+        }
+
+        private void keyUpEmail(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtPanNo.Focus();
+            }
+        }
+
+        private void keyUpPanNo(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtDOB.Focus();
+            }
+        }
+
+        private void keyUpAddress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSave.Focus();
+            }
+        }
     }
 }

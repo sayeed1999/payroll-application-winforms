@@ -71,7 +71,7 @@
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(108, 41);
-            this.btnUpdate.TabIndex = 35;
+            this.btnUpdate.TabIndex = 34;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
             // 
@@ -82,7 +82,7 @@
             this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(108, 41);
-            this.btnDelete.TabIndex = 34;
+            this.btnDelete.TabIndex = 35;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
@@ -118,6 +118,7 @@
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(327, 66);
             this.txtAddress.TabIndex = 30;
+            this.txtAddress.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpAddress);
             // 
             // label7
             // 
@@ -147,6 +148,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(327, 35);
             this.txtEmail.TabIndex = 26;
+            this.txtEmail.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpEmail);
             // 
             // label4
             // 
@@ -166,6 +168,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(327, 35);
             this.txtName.TabIndex = 20;
+            this.txtName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpName);
             // 
             // label1
             // 
@@ -215,6 +218,7 @@
             this.txtMobile.Name = "txtMobile";
             this.txtMobile.Size = new System.Drawing.Size(327, 35);
             this.txtMobile.TabIndex = 39;
+            this.txtMobile.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpMobile);
             // 
             // label5
             // 
@@ -254,6 +258,7 @@
             this.txtPanNo.Name = "txtPanNo";
             this.txtPanNo.Size = new System.Drawing.Size(327, 35);
             this.txtPanNo.TabIndex = 43;
+            this.txtPanNo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keyUpPanNo);
             // 
             // pictureBox
             // 
@@ -401,7 +406,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
-            this.Name = "EmployeeRegister";
+ 
             this.Text = "Employee Register";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();

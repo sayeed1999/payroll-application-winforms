@@ -13,6 +13,7 @@ namespace Payroll_Application_Winforms.Employee
 {
     public partial class EmployeeRegister : Form
     {
+        int count = 0;
         string fileName;
         Connection conn;
         public EmployeeRegister()
@@ -120,9 +121,10 @@ namespace Payroll_Application_Winforms.Employee
                 return;
             }
 
-            conn.dataSend("Insert into Employee (Name, Email, Mobile, FileName, Image) values ('" + txtName.Text + "','" + txtEmail.Text + "','" + txtMobile.Text + "','"+fileName+"','"+ConvertImageToBinary(pictureBox.Image)+"')");
+            conn.dataSend("Insert into Employee (EmpId, Name, Email, Mobile, FileName, ImageData) values (" + (count + 1) + ", '" + txtName.Text + "','" + txtEmail.Text + "','" + txtMobile.Text + "','"+fileName+"','"+ConvertImageToBinary(pictureBox.Image)+"')");
             MessageBox.Show("Successfully saved in database", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             ClearData();
+            LoadData();
         }
 
         private void ClearData()
@@ -137,8 +139,26 @@ namespace Payroll_Application_Winforms.Employee
             txtPanNo.Clear();
         }
 
+        private void LoadData()
+        {
+            conn.dataGet("Select * from Employee");
+            DataTable dt = new DataTable();
+            count = dt.Rows.Count;
+            conn.sda.Fill(dt);
+            dataGridView2.Rows.Clear();
+            foreach(DataRow row in dt.Rows)
+            {
+                int n = dataGridView2.Rows.Add();
+                dataGridView2.Rows[n].Cells["EmpId"].Value = row["EmpId"].ToString();
+                dataGridView2.Rows[n].Cells["Name"].Value = row["Name"].ToString();
+                dataGridView2.Rows[n].Cells["Email"].Value = row["Email"].ToString();
+                dataGridView2.Rows[n].Cells["Mobile"].Value = row["Mobile"].ToString();
+            }
+        }
+
         private void EmployeeRegister_Load(object sender, EventArgs e)
         {
+            LoadData();
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
         }

@@ -407,7 +407,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
-            this.Name = "EmployeeRegister";
+
             this.Text = "Employee Register";
             this.Load += new System.EventHandler(this.EmployeeRegister_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();

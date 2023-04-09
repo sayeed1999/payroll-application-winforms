@@ -50,8 +50,20 @@ namespace Payroll.Service
 
         public bool UpdateEmployee(string name, string email, string mobile, string filename, byte[] file)
         {
-            conn.dataSend("Update Employee set Name = '" + name + "', Mobile = '" + mobile + "', FileName = '" + filename + "', ImageData = '" + file + "' where email = '" + email + "'");
-            return true;
+            string error = conn.Update("[Employee]",
+                new List<Tuple<string, string>>
+                {
+                    new Tuple<string, string> ( "email", email ),
+                },
+                new List<Tuple<string, object>>
+                {
+                    new Tuple<string, object> ("name", name),
+                    new Tuple<string, object> ("mobile", mobile),
+                    new Tuple<string, object> ("FileName", filename),
+                    new Tuple<string, object> ("ImageData", file)
+                });
+
+            return error.Length == 0;
         }
 
         public bool DeleteEmployee(string email)

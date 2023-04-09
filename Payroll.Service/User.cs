@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -41,18 +42,32 @@ namespace Payroll.Service
         }
 
         // returns the no. of rows updated
-        public int UpdateUser(string email, string username, string name, DateTime dob, string role, string address)
+        public bool UpdateUser(string email, string username, string name, DateTime dob, string role, string address)
         {
-            DataTable dt = new DataTable();
-            conn.dataSend("UPDATE [User] SET Username ='" + username + "', Name ='" + name + "', DOB ='" + dob.ToString("dd/MM/yyyy") + "', Role ='" + role + "', Address ='" + address + "' where Email = '" + email + "'");
-            conn.sda.Fill(dt);
-            return dt.Rows.Count;
+            string error = conn.Update("[User]",
+                new List<Tuple<string, string>> { 
+                    new Tuple<string, string>("email", email),
+                },
+                new List<Tuple<string, object>> { 
+                    new Tuple<string, object>("username", username),
+                    new Tuple<string, object>("name", name),
+                    new Tuple<string, object>("dob", dob.ToString("dd/MM/yyyy")),
+                    new Tuple<string, object>("role", role),
+                    new Tuple<string, object>("address", address),
+                });
+            return error.Length == 0;
         }
         
         public bool ChangePassword(string username, string newPassword)
         {
-            conn.dataSend("UPDATE [User] SET Password ='" + newPassword + "' where Username = '" + username + "'");
-            return String.IsNullOrEmpty(conn.pkk);
+            string error = conn.Update("[User]",
+                new List<Tuple<string, string>> {
+                    new Tuple<string, string>("username", username),
+                },
+                new List<Tuple<string, object>> {
+                    new Tuple<string, object>("password", newPassword),
+                });
+            return (error.Length == 0);
         }
 
         public int DeleteUser(string email, string username)

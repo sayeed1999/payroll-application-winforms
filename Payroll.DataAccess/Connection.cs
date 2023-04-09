@@ -123,5 +123,45 @@ namespace Payroll.DataAccess
             return dataTable;
         }
 
+        public string Update(string table, List<Tuple<string, string>> filters, List<Tuple<string, object>> values)
+        {
+
+            string sql = $"update {table}";
+
+            int count = 0;
+            foreach (Tuple<string, object> key in values)
+            {
+                if (count == 0) sql += " set";
+                else sql += " ,";
+                sql += $" {key.Item1} = '{key.Item2}'";
+                count++;
+            }
+
+            count = 0;
+            foreach (Tuple<string, string> value in filters)
+            {
+                if (count > 0) sql += " and";
+                else sql += " where";
+                sql += $" {value.Item1} = '{value.Item2}'";
+                count++;
+            }
+
+            try
+            {
+                connection();
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                pkk = "";
+            }
+            catch (Exception ex)
+            {
+                pkk = "Please check your data";
+            }
+            conn.Close();
+
+            // preparing result set
+            return pkk;
+        }
+
     }
 }

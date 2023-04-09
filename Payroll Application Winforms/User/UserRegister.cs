@@ -135,8 +135,8 @@ namespace Payroll_Application_Winforms.User
             if (result == DialogResult.Yes)
             {
                 // update by email
-                int rowCount = userService.UpdateUser(txtEmail.Text, txtUsername.Text, txtName.Text, txtDOB.Value, txtRole.Text, txtAddress.Text);
-                if (rowCount == 0)
+                bool success = userService.UpdateUser(txtEmail.Text, txtUsername.Text, txtName.Text, txtDOB.Value, txtRole.Text, txtAddress.Text);
+                if (!success)
                 {
                     MessageBox.Show("Update Failed!", "Error", MessageBoxButtons.OKCancel);
                     return;

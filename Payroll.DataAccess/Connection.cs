@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Payroll.Service
+namespace Payroll.DataAccess
 {
     public class Connection
     {

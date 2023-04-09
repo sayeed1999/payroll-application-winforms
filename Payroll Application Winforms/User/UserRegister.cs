@@ -155,8 +155,8 @@ namespace Payroll_Application_Winforms.User
             DialogResult result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                int rowCount = userService.DeleteUser(txtEmail.Text, txtUsername.Text);
-                if (rowCount == 0)
+                bool success = userService.DeleteUser(txtEmail.Text, txtUsername.Text);
+                if (!success)
                 {
                     MessageBox.Show("Delete Failed!", "Error", MessageBoxButtons.OKCancel);
                     return;

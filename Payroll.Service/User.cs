@@ -70,12 +70,14 @@ namespace Payroll.Service
             return (error.Length == 0);
         }
 
-        public int DeleteUser(string email, string username)
+        public bool DeleteUser(string email, string username)
         {
-            DataTable dt = new DataTable();
-            conn.dataSend("DELETE from [User] where Username = '" + username + "' or Email ='" + email + "'");
-            conn.sda.Fill(dt);
-            return dt.Rows.Count;
+            string error = conn.Delete("[User]", new List<Tuple<string, string>>
+                {
+                    new Tuple<string, string> ("email", email)
+                });
+
+            return (error.Length == 0);
         }
     }
 }

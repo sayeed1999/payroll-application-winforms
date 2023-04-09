@@ -68,9 +68,13 @@ namespace Payroll.Service
 
         public bool DeleteEmployee(string email)
         {
-            conn.dataSend("delete from Employee where email = '" + email + "'");
-            count--;
-            return true;
+            string error = conn.Delete("[Employee]", new List<Tuple<string, string>>
+            {
+                new Tuple<string, string> ("email", email),
+            });
+            bool success = error.Length == 0;
+            if (success) --count;
+            return success;
         }
 
     }

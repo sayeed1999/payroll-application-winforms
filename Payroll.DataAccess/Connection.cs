@@ -163,5 +163,35 @@ namespace Payroll.DataAccess
             return pkk;
         }
 
+        public string Delete(string table, List<Tuple<string, string>> filters)
+        {
+            string sql = $"delete from {table}";
+
+            int count = 0;
+            foreach (Tuple<string, string> value in filters)
+            {
+                if (count > 0) sql += " and";
+                else sql += " where";
+                sql += $" {value.Item1} = '{value.Item2}'";
+                count++;
+            }
+
+            try
+            {
+                connection();
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                pkk = "";
+            }
+            catch (Exception ex)
+            {
+                pkk = "Please check your data";
+            }
+            conn.Close();
+
+            // preparing result set
+            return pkk;
+        }
+
     }
 }

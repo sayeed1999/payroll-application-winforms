@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connection.cs" />
     <Compile Include="Employee\EmployeeRegister.cs">
       <SubType>Form</SubType>
     </Compile>

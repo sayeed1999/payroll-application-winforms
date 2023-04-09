@@ -65,6 +65,7 @@ namespace Payroll.DataAccess
 
             }
             conn.Close();
+
             // preparing result set
             DataTable dataTable = new DataTable();
             sda.Fill(dataTable);
@@ -72,7 +73,7 @@ namespace Payroll.DataAccess
         }
 
         // only string supported currently
-        public void Insert(string table, List<string> keys, List<object> values)
+        public DataTable Insert(string table, List<string> keys, List<object> values)
         {
             if (keys.Count != values.Count)
                 throw new Exception("sql query is not valid!");
@@ -115,6 +116,11 @@ namespace Payroll.DataAccess
                 pkk = "Please check your data";
             }
             conn.Close();
+
+            // preparing result set
+            DataTable dataTable = new DataTable();
+            sda.Fill(dataTable);
+            return dataTable;
         }
 
     }

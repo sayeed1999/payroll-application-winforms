@@ -70,5 +70,52 @@ namespace Payroll.DataAccess
             sda.Fill(dataTable);
             return dataTable;
         }
+
+        // only string supported currently
+        public void Insert(string table, List<string> keys, List<object> values)
+        {
+            if (keys.Count != values.Count)
+                throw new Exception("sql query is not valid!");
+
+            string sql = $"insert into {table}";
+
+            int count = 0;
+            foreach (string key in keys)
+            {
+                if (count == 0)
+                {
+                    sql += $" ( {key}";
+                }
+                else
+                {
+                    sql += $", {key}";
+                }
+                count++;
+            }
+            if (count > 0) sql += " ) values ( ";
+
+            count = 0;
+            foreach (string value in values)
+            {
+                if (count > 0) sql += ",";
+                sql += $" '{value}'";
+                count++;
+            }
+            if (count > 0) sql += " )";
+
+            try
+            {
+                connection();
+                cmd = new SqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                pkk = "";
+            }
+            catch (Exception ex)
+            {
+                pkk = "Please check your data";
+            }
+            conn.Close();
+        }
+
     }
 }

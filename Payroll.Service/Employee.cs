@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -39,7 +40,10 @@ namespace Payroll.Service
                 throw new Exception("Employee already exists!");
             }
 
-            conn.dataSend("Insert into Employee (EmpId, Name, Email, Mobile, FileName, ImageData) values (" + (count + 1) + ", '" + name + "','" + email + "','" + mobile + "','" + filename + "','" + file + "')");
+            conn.Insert("[Employee]",
+                new List<string> { "EmpId", "Name", "Email", "Mobile", "FileName", "ImageData" },
+                new List<object> { (count+1).ToString(), name, email, mobile, filename, file }
+            );
             count++;
             return true;
         }

@@ -34,7 +34,9 @@ namespace Payroll.Service
 
         public bool Register(string name, string email, string username, string password, string role, DateTime dob, string address)
         {
-            conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + name + "','" + email + "','" + username + "','" + password + "','" + role + "','" + dob.ToString("dd/MM/yyyy") + "','" + address + "')");
+            conn.Insert("[User]",
+                new List<string> { "name", "email", "username", "password",  "role", "dob", "address" },
+                new List<object> { name, email, username, password, role, dob.ToString("dd/MM/yyyy"), address });
             return String.IsNullOrEmpty(conn.pkk);
         }
 

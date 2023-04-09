@@ -12,6 +12,8 @@ namespace Payroll_Application_Winforms
 {
     public partial class Login : Form
     {
+        Payroll.Service.User _userService = new Payroll.Service.User();
+
         public Login()
         {
             InitializeComponent();
@@ -24,12 +26,11 @@ namespace Payroll_Application_Winforms
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-            Connection conn = new Connection();
-            conn.dataGet("Select * from [User] where Username = '" + txtUsername.Text + "' and Password = '" + txtPassword.Text + "'");
-            DataTable dt = new DataTable();
-            conn.sda.Fill(dt);
+            string username = txtUsername.Text;
+            string password = txtPassword.Text;
 
-            if (dt.Rows.Count > 0)
+            bool isSuccess = _userService.Login(username, password);
+            if (isSuccess)
             {
                 this.Hide();
                 Main main = new Main();

@@ -13,11 +13,22 @@ namespace Payroll.Service
     {
         Connection conn = new Connection();
 
+        public DataTable GetAllUsers()
+        {
+            DataTable dt = conn.Select(
+                "[User]", new List<Tuple<string, string>>()
+            );
+            return dt;
+        }
+
         public bool Login(string username, string password)
         {
-            conn.Select("[User]", new Tuple<string, string>("username", username), new Tuple<string, string>("password", password));
-            DataTable dt = new DataTable();
-            conn.sda.Fill(dt);
+            DataTable dt = conn.Select(
+                "[User]", new List<Tuple<string, string>>
+                {
+                    new Tuple<string, string>("username", username), 
+                    new Tuple<string, string>("password", password)
+                });
             return (dt.Rows.Count > 0);
         }
 
@@ -25,14 +36,6 @@ namespace Payroll.Service
         {
             conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + name + "','" + email + "','" + username + "','" + password + "','" + role + "','" + dob.ToString("dd/MM/yyyy") + "','" + address + "')");
             return String.IsNullOrEmpty(conn.pkk);
-        }
-
-        public DataTable GetAllUsers()
-        {
-            conn.Select("[User]");
-            DataTable dataTable = new DataTable();
-            conn.sda.Fill(dataTable);
-            return dataTable;
         }
 
         // returns the no. of rows updated

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -36,8 +37,10 @@ namespace Payroll.DataAccess
             conn.Close();
         }
 
-        public void Select(string table, params Tuple<string, string>[] fields)
-        {
+        public DataTable Select(
+            string table, 
+            List<Tuple<string, string>> fields
+        ) {
             try
             {
                 connection();
@@ -62,6 +65,10 @@ namespace Payroll.DataAccess
 
             }
             conn.Close();
+            // preparing result set
+            DataTable dataTable = new DataTable();
+            sda.Fill(dataTable);
+            return dataTable;
         }
     }
 }

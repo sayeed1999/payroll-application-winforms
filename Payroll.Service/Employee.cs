@@ -17,18 +17,18 @@ namespace Payroll.Service
 
         public DataTable GetAllEmployees()
         {
-            conn.Select("Select * from Employee");
-            DataTable dt = new DataTable();
-            conn.sda.Fill(dt);
+            DataTable dt = conn.Select("[Employee]", new List<Tuple<string, string>>());
             count = dt.Rows.Count;
             return dt;
         }
 
         private bool IfEmployeeExists(string email)
         {
-            conn.Select("Select 1 from employee where email = '" + email + "'");
-            DataTable dt = new DataTable();
-            conn.sda.Fill(dt);
+            DataTable dt = conn.Select(
+                "[Employee]", new List<Tuple<string, string>>
+                {
+                    new Tuple<string, string>("email", email)
+                });
             return (dt.Rows.Count > 0);
         }
 

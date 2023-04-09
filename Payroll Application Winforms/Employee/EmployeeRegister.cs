@@ -14,12 +14,13 @@ namespace Payroll_Application_Winforms.Employee
 {
     public partial class EmployeeRegister : Form
     {
+        Payroll.Service.Employee employeeService = new Payroll.Service.Employee();
+
         int count = 0;
         string fileName;
-        Connection conn;
+        
         public EmployeeRegister()
         {
-            conn = new Connection();
             InitializeComponent();
         }
 
@@ -108,14 +109,6 @@ namespace Payroll_Application_Winforms.Employee
             return ret;
         }
 
-        private bool IfEmployeeExists(string email)
-        {
-            conn.dataGet("Select 1 from employee where email = '" + email + "'");
-            DataTable dt = new DataTable();
-            conn.sda.Fill(dt);
-            return (dt.Rows.Count > 0);
-        }
-
         private byte[] ConvertImageToBinary(Image img)
         {
             if (img == null) return null;
@@ -124,22 +117,6 @@ namespace Payroll_Application_Winforms.Employee
                 img.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return memoryStream.ToArray();
             }
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (!IsValid()) return;
-
-            if (IfEmployeeExists(txtEmail.Text))
-            {
-                MessageBox.Show("Employee already exists", "Message", MessageBoxButtons.OK);
-                return;
-            }
-
-            conn.dataSend("Insert into Employee (EmpId, Name, Email, Mobile, FileName, ImageData) values (" + (count + 1) + ", '" + txtName.Text + "','" + txtEmail.Text + "','" + txtMobile.Text + "','"+fileName+"','"+ConvertImageToBinary(pictureBox.Image)+"')");
-            MessageBox.Show("Successfully saved in database", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearData();
-            LoadData();
         }
 
         private void ClearData()
@@ -159,10 +136,7 @@ namespace Payroll_Application_Winforms.Employee
 
         private void LoadData()
         {
-            conn.dataGet("Select * from Employee");
-            DataTable dt = new DataTable();
-            count = dt.Rows.Count;
-            conn.sda.Fill(dt);
+            DataTable dt = employeeService.GetAllEmployees();
             dataGridView2.Rows.Clear();
             foreach(DataRow row in dt.Rows)
             {
@@ -206,9 +180,28 @@ namespace Payroll_Application_Winforms.Employee
             btnDelete.Enabled = true;
         }
 
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!IsValid()) return;
+
+            try
+            {
+                bool success = employeeService.CreateEmployee(txtName.Text, txtEmail.Text, txtMobile.Text, fileName, ConvertImageToBinary(pictureBox.Image));
+                MessageBox.Show("Successfully saved in database", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearData();
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                return;
+            }
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            conn.dataSend("Update Employee set Name = '"  + txtName.Text + "', FileName = '" + fileName + "', ImageData = '" + ConvertImageToBinary(pictureBox.Image) + "' where email = '" + txtEmail.Text + "'");
+
+            employeeService.UpdateEmployee(txtName.Text, txtEmail.Text, txtMobile.Text, fileName, ConvertImageToBinary(pictureBox.Image));
             MessageBox.Show("Record updated successfully", "Information", MessageBoxButtons.OK);
             ClearData();
             LoadData();
@@ -220,7 +213,7 @@ namespace Payroll_Application_Winforms.Employee
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            conn.dataSend("delete from Employee where email = '" + txtEmail.Text + "'");
+            employeeService.DeleteEmployee(txtEmail.Text);
             MessageBox.Show("Record deleted successfully", "Information", MessageBoxButtons.OK);
             ClearData();
             LoadData();

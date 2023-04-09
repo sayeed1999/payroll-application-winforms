@@ -12,7 +12,8 @@ namespace Payroll_Application_Winforms.User
 {
     public partial class UserRegister : Form
     {
-        Connection conn = new Connection();
+        Payroll.Service.User userService = new Payroll.Service.User();
+
         public UserRegister()
         {
             InitializeComponent();
@@ -24,6 +25,26 @@ namespace Payroll_Application_Winforms.User
             //this.ActiveControl = this;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
+        }
+
+        private void LoadData()
+        {
+            DataTable dt = userService.GetAllUsers();
+            int count = 0;
+            dataGridView1.Rows.Clear();
+            foreach (DataRow row in dt.Rows)
+            {
+                int index = dataGridView1.Rows.Add();
+
+                dataGridView1.Rows[index].Cells["Sl"].Value = ++count;
+                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
+                dataGridView1.Rows[index].Cells["Username"].Value = row["Username"].ToString();
+                dataGridView1.Rows[index].Cells["Email"].Value = row["Email"].ToString();
+                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
+                dataGridView1.Rows[index].Cells["Role"].Value = row["Role"].ToString();
+                dataGridView1.Rows[index].Cells["Address"].Value = row["Address"].ToString();
+                dataGridView1.Rows[index].Cells["DOB"].Value = String.IsNullOrEmpty(row["DOB"].ToString()) ? "" : Convert.ToDateTime(row["DOB"].ToString()).ToString("dd/MM/yyyy");
+            }
         }
 
         private void ClearData()
@@ -89,40 +110,64 @@ namespace Payroll_Application_Winforms.User
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            bool isSuccess = false;
+
             if (Validation())
             {
-                conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + txtName.Text + "','" + txtEmail.Text + "','" + txtUsername.Text + "','" + txtPassword.Text + "','" + txtRole.Text + "','" + txtDOB.Value.ToString("dd/MM/yyyy") + "','" + txtAddress.Text + "')");
+                isSuccess = userService.Register(txtName.Text, txtEmail.Text, txtUsername.Text, txtPassword.Text, txtRole.Text, txtDOB.Value, txtAddress.Text);
+            }
+
+            if (isSuccess)
+            {
                 MessageBox.Show("Record saved successfully");
                 ClearData();
                 LoadData();
             }
-        }
-
-        private void LoadData()
-        {
-            conn.dataGet("select * from dbo.[User]");
-            DataTable dataTable = new DataTable();
-            conn.sda.Fill(dataTable);
-            int count = 0;
-            dataGridView1.Rows.Clear();
-            foreach (DataRow row in dataTable.Rows)
+            else
             {
-                int index = dataGridView1.Rows.Add();
-
-                dataGridView1.Rows[index].Cells["Sl"].Value = ++count;
-                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
-                dataGridView1.Rows[index].Cells["Username"].Value = row["Username"].ToString();
-                dataGridView1.Rows[index].Cells["Email"].Value = row["Email"].ToString();
-                dataGridView1.Rows[index].Cells["Name"].Value = row["Name"].ToString();
-                dataGridView1.Rows[index].Cells["Role"].Value = row["Role"].ToString();
-                dataGridView1.Rows[index].Cells["Address"].Value = row["Address"].ToString();
-                dataGridView1.Rows[index].Cells["DOB"].Value = String.IsNullOrEmpty(row["DOB"].ToString()) ? "" : Convert.ToDateTime(row["DOB"].ToString()).ToString("dd/MM/yyyy");
+                MessageBox.Show("Some error occurred");
             }
         }
 
-        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Are you sure?", "Update", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                // update by email
+                int rowCount = userService.UpdateUser(txtEmail.Text, txtUsername.Text, txtName.Text, txtDOB.Value, txtRole.Text, txtAddress.Text);
+                if (rowCount == 0)
+                {
+                    MessageBox.Show("Update Failed!", "Error", MessageBoxButtons.OKCancel);
+                    return;
+                }
+                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearData();
+                LoadData();
+                btnSave.Enabled = true;
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+            }
+        }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                int rowCount = userService.DeleteUser(txtEmail.Text, txtUsername.Text);
+                if (rowCount == 0)
+                {
+                    MessageBox.Show("Delete Failed!", "Error", MessageBoxButtons.OKCancel);
+                    return;
+                }
+                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearData();
+                LoadData();
+                btnSave.Enabled = true;
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+            }
         }
 
         private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -138,37 +183,6 @@ namespace Payroll_Application_Winforms.User
             btnSave.Enabled = false;
             btnUpdate.Enabled = true;
             btnDelete.Enabled = true;
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure?", "Update", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                // update by email
-                conn.dataSend("UPDATE [User] SET Username ='"+txtUsername.Text+ "', Name ='" + txtName.Text+ "', DOB ='"+txtDOB.Value.ToString("dd/MM/yyyy")+"', Role ='" + txtRole.Text+"', Address ='" + txtAddress.Text+"' where Email = '"+txtEmail.Text+"'");
-                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearData();
-                LoadData();
-                btnSave.Enabled = true;
-                btnDelete.Enabled = false;
-                btnUpdate.Enabled = false;
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure?", "Delete", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                conn.dataSend("DELETE from [User] where Username = '" + txtUsername.Text + "' or Email ='" + txtEmail.Text + "'");
-                MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearData();
-                LoadData();
-                btnSave.Enabled = true;
-                btnDelete.Enabled = false;
-                btnUpdate.Enabled = false;
-            }
         }
 
         private void keyDown(object sender, KeyEventArgs e)

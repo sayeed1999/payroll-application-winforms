@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Payroll.Service
 {
-    class Connection
+    public class Connection
     {
         public SqlConnection conn;
         public SqlCommand cmd;

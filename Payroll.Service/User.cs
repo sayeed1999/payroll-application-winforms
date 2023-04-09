@@ -4,18 +4,56 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Payroll.Service
 {
     public class User
     {
+        Connection conn = new Connection();
+
         public bool Login(string username, string password)
         {
-            Connection conn = new Connection();
+
             conn.dataGet("Select * from [User] where Username = '" + username + "' and Password = '" + password + "'");
+            return String.IsNullOrEmpty(conn.pkk);
+        }
+
+        public bool Register(string name, string email, string username, string password, string role, DateTime dob, string address)
+        {
+            conn.dataSend("Insert into [User] (Name, Email, Username, Password, Role, DOB, Address) values ('" + name + "','" + email + "','" + username + "','" + password + "','" + role + "','" + dob.ToString("dd/MM/yyyy") + "','" + address + "')");
+            return String.IsNullOrEmpty(conn.pkk);
+        }
+
+        public DataTable GetAllUsers()
+        {
+            conn.dataGet("select * from dbo.[User]");
+            DataTable dataTable = new DataTable();
+            conn.sda.Fill(dataTable);
+            return dataTable;
+        }
+
+        // returns the no. of rows updated
+        public int UpdateUser(string email, string username, string name, DateTime dob, string role, string address)
+        {
             DataTable dt = new DataTable();
+            conn.dataSend("UPDATE [User] SET Username ='" + username + "', Name ='" + name + "', DOB ='" + dob.ToString("dd/MM/yyyy") + "', Role ='" + role + "', Address ='" + address + "' where Email = '" + email + "'");
             conn.sda.Fill(dt);
-            return (dt.Rows.Count > 0);
+            return dt.Rows.Count;
+        }
+        
+        public bool ChangePassword(string username, string newPassword)
+        {
+            conn.dataSend("UPDATE [User] SET Password ='" + newPassword + "' where Username = '" + username + "'");
+            return String.IsNullOrEmpty(conn.pkk);
+        }
+
+        public int DeleteUser(string email, string username)
+        {
+            DataTable dt = new DataTable();
+            conn.dataSend("DELETE from [User] where Username = '" + username + "' or Email ='" + email + "'");
+            conn.sda.Fill(dt);
+            return dt.Rows.Count;
         }
     }
 }

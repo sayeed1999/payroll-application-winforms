@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Payroll.Service;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,8 @@ namespace Payroll_Application_Winforms.User
 {
     public partial class ChangePassword : Form
     {
+        Payroll.Service.User userService = new Payroll.Service.User();
+
         public ChangePassword()
         {
             InitializeComponent();
@@ -34,9 +37,11 @@ namespace Payroll_Application_Winforms.User
             DialogResult result = MessageBox.Show("Are you sure?", "Update", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                Connection conn = new Connection();
-                // update by email
-                conn.dataSend("UPDATE [User] SET Password ='" + txtNewPassword.Text + "' where Username = '" + txtUsername.Text + "'");
+                bool isSuccess = userService.ChangePassword(txtUsername.Text, txtNewPassword.Text);
+                if (!isSuccess)
+                {
+                    MessageBox.Show("Failed!", "Failed", MessageBoxButtons.OK);
+                }
                 MessageBox.Show("Record updated successfully", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }

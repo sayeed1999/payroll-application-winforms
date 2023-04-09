@@ -68,7 +68,6 @@ namespace Payroll.Service
 
         public bool DeleteEmployee(string email)
         {
-            var x;
             string error = conn.Delete("[Employee]", new List<Tuple<string, string>>
             {
                 new Tuple<string, string> ("email", email),

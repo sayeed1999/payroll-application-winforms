@@ -15,9 +15,10 @@ namespace Payroll.Service
 
         public bool Login(string username, string password)
         {
-
-            conn.dataGet("Select * from [User] where Username = '" + username + "' and Password = '" + password + "'");
-            return String.IsNullOrEmpty(conn.pkk);
+            conn.Select("[User]", new Tuple<string, string>("username", username), new Tuple<string, string>("password", password));
+            DataTable dt = new DataTable();
+            conn.sda.Fill(dt);
+            return (dt.Rows.Count > 0);
         }
 
         public bool Register(string name, string email, string username, string password, string role, DateTime dob, string address)
@@ -28,7 +29,7 @@ namespace Payroll.Service
 
         public DataTable GetAllUsers()
         {
-            conn.dataGet("select * from dbo.[User]");
+            conn.Select("[User]");
             DataTable dataTable = new DataTable();
             conn.sda.Fill(dataTable);
             return dataTable;

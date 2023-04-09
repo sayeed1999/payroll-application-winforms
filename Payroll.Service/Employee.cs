@@ -17,7 +17,7 @@ namespace Payroll.Service
 
         public DataTable GetAllEmployees()
         {
-            conn.dataGet("Select * from Employee");
+            conn.Select("Select * from Employee");
             DataTable dt = new DataTable();
             conn.sda.Fill(dt);
             count = dt.Rows.Count;
@@ -26,7 +26,7 @@ namespace Payroll.Service
 
         private bool IfEmployeeExists(string email)
         {
-            conn.dataGet("Select 1 from employee where email = '" + email + "'");
+            conn.Select("Select 1 from employee where email = '" + email + "'");
             DataTable dt = new DataTable();
             conn.sda.Fill(dt);
             return (dt.Rows.Count > 0);
@@ -52,7 +52,8 @@ namespace Payroll.Service
 
         public bool DeleteEmployee(string email)
         {
-            conn.dataSend("delete from Employee where email = '" + email + "'");            
+            conn.dataSend("delete from Employee where email = '" + email + "'");
+            count--;
             return true;
         }
 

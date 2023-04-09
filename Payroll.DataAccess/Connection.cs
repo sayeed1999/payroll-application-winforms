@@ -36,12 +36,26 @@ namespace Payroll.DataAccess
             conn.Close();
         }
 
-        public void dataGet(string SQL)
+        public void Select(string table, params Tuple<string, string>[] fields)
         {
             try
             {
                 connection();
-                sda = new SqlDataAdapter(SQL, conn);
+                string sql = $"select * from {table}";
+                bool whereAdded = false;
+                foreach (Tuple<string, string> field in fields)
+                {
+                    if (!whereAdded)
+                    {
+                        whereAdded = true;
+                        sql += $" where {field.Item1} = '{field.Item2}'";
+                    }
+                    else
+                    {
+                        sql += $" and {field.Item1} = '{field.Item2}'";
+                    }
+                }
+                sda = new SqlDataAdapter(sql, conn);
             }
             catch (Exception ex)
             {

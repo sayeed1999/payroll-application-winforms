@@ -32,33 +32,10 @@ namespace Payroll.DataAccess
 
                 string sql = $"select * from {table}";
 
-                if (fields?.Count > 0)
-                {
-                    int count = 0;
-                    string temp = "";
-                    foreach(string field in fields)
-                    {
-                        if (count > 0) temp += ", ";
-                        temp += field;
-                        count++;
-                    }
-
-                    sql = sql.Replace("*", temp);
-                }
+                string temp = PrepareColumnSelection(fields);
+                if (!String.IsNullOrEmpty(temp)) sql = sql.Replace("*", temp);
+                sql += PrepareWhereClause(filters);
                 
-                bool whereAdded = false;
-                foreach (Filter filter in filters)
-                {
-                    if (!whereAdded)
-                    {
-                        whereAdded = true;
-                        sql += " where ";
-                    }
-                    else
-                        sql += " and ";
-                    
-                    sql += $"{filter.Key} {filter.Operator} '{filter.Value}'";
-                }
                 sda = new SqlDataAdapter(sql, conn);
             }
             catch (Exception ex)
@@ -83,27 +60,7 @@ namespace Payroll.DataAccess
                 throw new Exception("sql query is not valid!");
 
             string sql = $"insert into {table}";
-
-            int count = 0;
-            foreach (string key in keys)
-            {
-                if (count == 0)
-                    sql += " ( ";
-                else
-                    sql += ", ";
-                sql += $"{key}";
-                count++;
-            }
-            if (count > 0) sql += " ) values ( ";
-
-            count = 0;
-            foreach (string value in values)
-            {
-                if (count > 0) sql += ",";
-                sql += $" '{value}'";
-                count++;
-            }
-            if (count > 0) sql += " )";
+            sql += PrepareInsertClause(keys, values);
 
             try
             {
@@ -140,14 +97,7 @@ namespace Payroll.DataAccess
                 count++;
             }
 
-            count = 0;
-            foreach (Filter filter in filters)
-            {
-                if (count > 0) sql += " and";
-                else sql += " where";
-                sql += $" {filter.Key} {filter.Operator} '{filter.Value}'";
-                count++;
-            }
+            sql += PrepareWhereClause(filters);
 
             try
             {
@@ -171,15 +121,7 @@ namespace Payroll.DataAccess
             List<Filter> filters)
         {
             string sql = $"delete from {table}";
-
-            int count = 0;
-            foreach (Filter filter in filters)
-            {
-                if (count > 0) sql += " and";
-                else sql += " where";
-                sql += $" {filter.Key} {filter.Operator} '{filter.Value}'";
-                count++;
-            }
+            sql += PrepareWhereClause(filters);
 
             try
             {
@@ -198,5 +140,66 @@ namespace Payroll.DataAccess
             return pkk;
         }
 
+        private string PrepareColumnSelection(List<string> fields = null)
+        {
+            string sql = "";
+            if (fields == null || fields.Count == 0) return sql;
+
+            int count = 0;
+            foreach (string field in fields)
+            {
+                if (count > 0) sql += ", ";
+                sql += field;
+                count++;
+            }
+            return sql;
+        }
+
+        private string PrepareWhereClause(List<Filter> filters)
+        {
+            string sql = "";
+            int count = 0;
+            foreach (Filter filter in filters)
+            {
+                if (count == 0) 
+                    sql += " where";
+                else 
+                    sql += filter.IsOrClause == true ? " or " : " and ";
+                
+                sql += $" {filter.Key} {filter.Operator} '{filter.Value}'";
+                count++;
+            }
+            return sql;
+        }
+
+        private string PrepareInsertClause(
+            List<string> keys,
+            List<object> values)
+        {
+            string sql = "";
+
+            int count = 0;
+            foreach (string key in keys)
+            {
+                if (count == 0)
+                    sql += " ( ";
+                else
+                    sql += ", ";
+                sql += $"{key}";
+                count++;
+            }
+            if (count > 0) sql += " ) values ( ";
+
+            count = 0;
+            foreach (string value in values)
+            {
+                if (count > 0) sql += ",";
+                sql += $" '{value}'";
+                count++;
+            }
+            if (count > 0) sql += " )";
+
+            return sql;
+        }
     }
 }

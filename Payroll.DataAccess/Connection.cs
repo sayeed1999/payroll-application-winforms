@@ -22,15 +22,32 @@ namespace Payroll.DataAccess
         }
 
         public DataTable Select(
-            string table, 
-            List<Filter> fields
+            string table,
+            List<Filter> filters,
+            List<string> fields = null
         ) {
             try
             {
                 connection();
+
                 string sql = $"select * from {table}";
+
+                if (fields?.Count > 0)
+                {
+                    int count = 0;
+                    string temp = "";
+                    foreach(string field in fields)
+                    {
+                        if (count > 0) temp += ", ";
+                        temp += field;
+                        count++;
+                    }
+
+                    sql = sql.Replace("*", temp);
+                }
+                
                 bool whereAdded = false;
-                foreach (Filter field in fields)
+                foreach (Filter filter in filters)
                 {
                     if (!whereAdded)
                     {
@@ -40,7 +57,7 @@ namespace Payroll.DataAccess
                     else
                         sql += " and ";
                     
-                    sql += $"{field.Key} {field.Operator} '{field.Value}'";
+                    sql += $"{filter.Key} {filter.Operator} '{filter.Value}'";
                 }
                 sda = new SqlDataAdapter(sql, conn);
             }
@@ -57,7 +74,10 @@ namespace Payroll.DataAccess
         }
 
         // only string supported currently
-        public DataTable Insert(string table, List<string> keys, List<object> values)
+        public DataTable Insert(
+            string table, 
+            List<string> keys, 
+            List<object> values)
         {
             if (keys.Count != values.Count)
                 throw new Exception("sql query is not valid!");
@@ -104,7 +124,10 @@ namespace Payroll.DataAccess
             return dataTable;
         }
 
-        public string Update(string table, List<Filter> filters, List<Tuple<string, object>> values)
+        public string Update(
+            string table, 
+            List<Filter> filters, 
+            List<Tuple<string, object>> values)
         {
             string sql = $"update {table}";
 
@@ -143,7 +166,9 @@ namespace Payroll.DataAccess
             return pkk;
         }
 
-        public string Delete(string table, List<Filter> filters)
+        public string Delete(
+            string table, 
+            List<Filter> filters)
         {
             string sql = $"delete from {table}";
 

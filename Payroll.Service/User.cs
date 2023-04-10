@@ -17,7 +17,8 @@ namespace Payroll.Service
         public DataTable GetAllUsers()
         {
             DataTable dt = conn.Select(
-                "[User]", new List<Filter> { }
+                "[User]", new List<Filter> { },
+                new List<string> { "name", "username", "role", "dob", "email", "address" }
             );
             return dt;
         }

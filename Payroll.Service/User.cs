@@ -17,7 +17,7 @@ namespace Payroll.Service
         public DataTable GetAllUsers()
         {
             DataTable dt = conn.Select(
-                "[User]", new List<Tuple<string, string>>()
+                "[User]", new List<Filter> { }
             );
             return dt;
         }
@@ -25,10 +25,10 @@ namespace Payroll.Service
         public bool Login(string username, string password)
         {
             DataTable dt = conn.Select(
-                "[User]", new List<Tuple<string, string>>
+                "[User]", new List<Filter>
                 {
-                    new Tuple<string, string>("username", username), 
-                    new Tuple<string, string>("password", password)
+                    new Filter("username", Operator.Equal, username), 
+                    new Filter("password", Operator.Equal, password)
                 });
             return (dt.Rows.Count > 0);
         }

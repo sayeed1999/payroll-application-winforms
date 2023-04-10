@@ -21,42 +21,27 @@ namespace Payroll.DataAccess
             conn.Open();
         }
 
-        public void dataSend(string SQL)
-        {
-            try
-            {
-                connection();
-                cmd = new SqlCommand(SQL, conn);
-                cmd.ExecuteNonQuery();
-                pkk = "";
-            }
-            catch (Exception ex)
-            {
-                pkk = "Please check your data";
-            }
-            conn.Close();
-        }
-
         public DataTable Select(
             string table, 
-            List<Tuple<string, string>> fields
+            List<Filter> fields
         ) {
             try
             {
                 connection();
                 string sql = $"select * from {table}";
                 bool whereAdded = false;
-                foreach (Tuple<string, string> field in fields)
+                foreach (Filter field in fields)
                 {
                     if (!whereAdded)
                     {
                         whereAdded = true;
-                        sql += $" where {field.Item1} = '{field.Item2}'";
+                        sql += " where ";
                     }
                     else
                     {
-                        sql += $" and {field.Item1} = '{field.Item2}'";
+                        sql += " and ";
                     }
+                    sql += $"{field.Key} {field.Operator} '{field.Value}'";
                 }
                 sda = new SqlDataAdapter(sql, conn);
             }

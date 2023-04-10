@@ -18,7 +18,7 @@ namespace Payroll.Service
 
         public DataTable GetAllEmployees()
         {
-            DataTable dt = conn.Select("[Employee]", new List<Tuple<string, string>>());
+            DataTable dt = conn.Select("[Employee]", new List<Filter> { });
             count = dt.Rows.Count;
             return dt;
         }
@@ -26,9 +26,9 @@ namespace Payroll.Service
         private bool IfEmployeeExists(string email)
         {
             DataTable dt = conn.Select(
-                "[Employee]", new List<Tuple<string, string>>
+                "[Employee]", new List<Filter>
                 {
-                    new Tuple<string, string>("email", email)
+                    new Filter("email", Operator.Equal, email)
                 });
             return (dt.Rows.Count > 0);
         }

@@ -45,8 +45,8 @@ namespace Payroll.Service
         public bool UpdateUser(string email, string username, string name, DateTime dob, string role, string address)
         {
             string error = conn.Update("[User]",
-                new List<Tuple<string, string>> { 
-                    new Tuple<string, string>("email", email),
+                new List<Filter> { 
+                    new Filter("email", Operator.Equal, email),
                 },
                 new List<Tuple<string, object>> { 
                     new Tuple<string, object>("username", username),
@@ -61,8 +61,8 @@ namespace Payroll.Service
         public bool ChangePassword(string username, string newPassword)
         {
             string error = conn.Update("[User]",
-                new List<Tuple<string, string>> {
-                    new Tuple<string, string>("username", username),
+                new List<Filter> {
+                    new Filter("username", Operator.Equal, username),
                 },
                 new List<Tuple<string, object>> {
                     new Tuple<string, object>("password", newPassword),
@@ -72,9 +72,9 @@ namespace Payroll.Service
 
         public bool DeleteUser(string email, string username)
         {
-            string error = conn.Delete("[User]", new List<Tuple<string, string>>
+            string error = conn.Delete("[User]", new List<Filter>
                 {
-                    new Tuple<string, string> ("email", email)
+                    new Filter ("email", Operator.Equal, email)
                 });
 
             return (error.Length == 0);

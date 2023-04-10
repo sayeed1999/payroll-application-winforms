@@ -51,9 +51,9 @@ namespace Payroll.Service
         public bool UpdateEmployee(string name, string email, string mobile, string filename, byte[] file)
         {
             string error = conn.Update("[Employee]",
-                new List<Tuple<string, string>>
+                new List<Filter>
                 {
-                    new Tuple<string, string> ( "email", email ),
+                    new Filter ("email", Operator.Equal, email),
                 },
                 new List<Tuple<string, object>>
                 {
@@ -68,9 +68,9 @@ namespace Payroll.Service
 
         public bool DeleteEmployee(string email)
         {
-            string error = conn.Delete("[Employee]", new List<Tuple<string, string>>
+            string error = conn.Delete("[Employee]", new List<Filter>
             {
-                new Tuple<string, string> ("email", email),
+                new Filter ("email", Operator.Equal, email),
             });
             bool success = error.Length == 0;
             if (success) --count;

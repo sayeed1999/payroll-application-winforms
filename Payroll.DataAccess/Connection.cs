@@ -38,9 +38,8 @@ namespace Payroll.DataAccess
                         sql += " where ";
                     }
                     else
-                    {
                         sql += " and ";
-                    }
+                    
                     sql += $"{field.Key} {field.Operator} '{field.Value}'";
                 }
                 sda = new SqlDataAdapter(sql, conn);
@@ -69,13 +68,10 @@ namespace Payroll.DataAccess
             foreach (string key in keys)
             {
                 if (count == 0)
-                {
-                    sql += $" ( {key}";
-                }
+                    sql += " ( ";
                 else
-                {
-                    sql += $", {key}";
-                }
+                    sql += ", ";
+                sql += $"{key}";
                 count++;
             }
             if (count > 0) sql += " ) values ( ";
@@ -108,9 +104,8 @@ namespace Payroll.DataAccess
             return dataTable;
         }
 
-        public string Update(string table, List<Tuple<string, string>> filters, List<Tuple<string, object>> values)
+        public string Update(string table, List<Filter> filters, List<Tuple<string, object>> values)
         {
-
             string sql = $"update {table}";
 
             int count = 0;
@@ -123,11 +118,11 @@ namespace Payroll.DataAccess
             }
 
             count = 0;
-            foreach (Tuple<string, string> value in filters)
+            foreach (Filter filter in filters)
             {
                 if (count > 0) sql += " and";
                 else sql += " where";
-                sql += $" {value.Item1} = '{value.Item2}'";
+                sql += $" {filter.Key} {filter.Operator} '{filter.Value}'";
                 count++;
             }
 
@@ -148,16 +143,16 @@ namespace Payroll.DataAccess
             return pkk;
         }
 
-        public string Delete(string table, List<Tuple<string, string>> filters)
+        public string Delete(string table, List<Filter> filters)
         {
             string sql = $"delete from {table}";
 
             int count = 0;
-            foreach (Tuple<string, string> value in filters)
+            foreach (Filter filter in filters)
             {
                 if (count > 0) sql += " and";
                 else sql += " where";
-                sql += $" {value.Item1} = '{value.Item2}'";
+                sql += $" {filter.Key} {filter.Operator} '{filter.Value}'";
                 count++;
             }
 

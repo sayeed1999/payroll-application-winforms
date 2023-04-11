@@ -44,6 +44,8 @@
             this.employeeDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.employeeTableAdapter = new Payroll_Application_Winforms.DataSet.EmployeeDsTableAdapters.EmployeeTableAdapter();
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
+            this.Employee_Rep1 = new Payroll_Application_Winforms.Employee_Rep();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDs)).BeginInit();
@@ -65,12 +67,12 @@
             this.addressDataGridViewTextBoxColumn,
             this.fileNameDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.employeeBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 40);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 50);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1072, 217);
+            this.dataGridView1.Size = new System.Drawing.Size(1231, 207);
             this.dataGridView1.TabIndex = 0;
             // 
             // empIdDataGridViewTextBoxColumn
@@ -175,19 +177,32 @@
             // 
             // crystalReportViewer1
             // 
-            this.crystalReportViewer1.ActiveViewIndex = -1;
+            this.crystalReportViewer1.ActiveViewIndex = 0;
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.crystalReportViewer1.Location = new System.Drawing.Point(12, 263);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(1072, 293);
+            this.crystalReportViewer1.ReportSource = "C:\\Development\\Payroll Application Winforms\\Payroll Application Winforms\\Reps\\Emp" +
+    "_Rep.rpt";
+            this.crystalReportViewer1.Size = new System.Drawing.Size(1231, 293);
             this.crystalReportViewer1.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1092, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(151, 32);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Load Report";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Employee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1096, 568);
+            this.ClientSize = new System.Drawing.Size(1255, 568);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.crystalReportViewer1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Employee";
@@ -219,5 +234,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fileNameDataGridViewTextBoxColumn;
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         private Reps.Emp_Rep Emp_Rep1;
+        private Employee_Rep Employee_Rep1;
+        private System.Windows.Forms.Button button1;
     }
 }

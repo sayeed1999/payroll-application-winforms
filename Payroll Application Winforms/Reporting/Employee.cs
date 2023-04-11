@@ -23,5 +23,12 @@ namespace Payroll_Application_Winforms.Reporting
             this.employeeTableAdapter.Fill(this.employeeDs.Employee);
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Reps.Emp_Rep emp_Rep = new Reps.Emp_Rep();
+            emp_Rep.SetDataSource(this.employeeDs);
+            this.crystalReportViewer1.ReportSource = emp_Rep;
+        }
     }
 }

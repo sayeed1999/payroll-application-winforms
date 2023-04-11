@@ -59,7 +59,7 @@ namespace Payroll_Application_Winforms
 
         private void employeeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Report.EmployeeReporting form = new Report.EmployeeReporting();
+            Reporting.Employee form = new Reporting.Employee();
             form.MdiParent = this;
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();

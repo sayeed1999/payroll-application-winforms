@@ -46,6 +46,7 @@
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.Employee_Rep1 = new Payroll_Application_Winforms.Employee_Rep();
             this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDs)).BeginInit();
@@ -54,7 +55,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.empIdDataGridViewTextBoxColumn,
@@ -72,7 +76,7 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1231, 207);
+            this.dataGridView1.Size = new System.Drawing.Size(1231, 253);
             this.dataGridView1.TabIndex = 0;
             // 
             // empIdDataGridViewTextBoxColumn
@@ -82,7 +86,6 @@
             this.empIdDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.empIdDataGridViewTextBoxColumn.Name = "empIdDataGridViewTextBoxColumn";
             this.empIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.empIdDataGridViewTextBoxColumn.Width = 150;
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -91,7 +94,6 @@
             this.nameDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
             this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 150;
             // 
             // mobileDataGridViewTextBoxColumn
             // 
@@ -100,7 +102,6 @@
             this.mobileDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.mobileDataGridViewTextBoxColumn.Name = "mobileDataGridViewTextBoxColumn";
             this.mobileDataGridViewTextBoxColumn.ReadOnly = true;
-            this.mobileDataGridViewTextBoxColumn.Width = 150;
             // 
             // emailDataGridViewTextBoxColumn
             // 
@@ -109,7 +110,6 @@
             this.emailDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.emailDataGridViewTextBoxColumn.Name = "emailDataGridViewTextBoxColumn";
             this.emailDataGridViewTextBoxColumn.ReadOnly = true;
-            this.emailDataGridViewTextBoxColumn.Width = 150;
             // 
             // panNoDataGridViewTextBoxColumn
             // 
@@ -118,7 +118,6 @@
             this.panNoDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.panNoDataGridViewTextBoxColumn.Name = "panNoDataGridViewTextBoxColumn";
             this.panNoDataGridViewTextBoxColumn.ReadOnly = true;
-            this.panNoDataGridViewTextBoxColumn.Width = 150;
             // 
             // dOBDataGridViewTextBoxColumn
             // 
@@ -127,7 +126,6 @@
             this.dOBDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.dOBDataGridViewTextBoxColumn.Name = "dOBDataGridViewTextBoxColumn";
             this.dOBDataGridViewTextBoxColumn.ReadOnly = true;
-            this.dOBDataGridViewTextBoxColumn.Width = 150;
             // 
             // bankDetailsDataGridViewTextBoxColumn
             // 
@@ -136,7 +134,6 @@
             this.bankDetailsDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.bankDetailsDataGridViewTextBoxColumn.Name = "bankDetailsDataGridViewTextBoxColumn";
             this.bankDetailsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.bankDetailsDataGridViewTextBoxColumn.Width = 150;
             // 
             // addressDataGridViewTextBoxColumn
             // 
@@ -145,7 +142,6 @@
             this.addressDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.addressDataGridViewTextBoxColumn.Name = "addressDataGridViewTextBoxColumn";
             this.addressDataGridViewTextBoxColumn.ReadOnly = true;
-            this.addressDataGridViewTextBoxColumn.Width = 150;
             // 
             // fileNameDataGridViewTextBoxColumn
             // 
@@ -154,7 +150,6 @@
             this.fileNameDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
             this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.fileNameDataGridViewTextBoxColumn.Width = 150;
             // 
             // employeeBindingSource
             // 
@@ -178,13 +173,15 @@
             // crystalReportViewer1
             // 
             this.crystalReportViewer1.ActiveViewIndex = 0;
+            this.crystalReportViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(12, 263);
+            this.crystalReportViewer1.Location = new System.Drawing.Point(12, 309);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
             this.crystalReportViewer1.ReportSource = "C:\\Development\\Payroll Application Winforms\\Payroll Application Winforms\\Reps\\Emp" +
     "_Rep.rpt";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(1231, 293);
+            this.crystalReportViewer1.Size = new System.Drawing.Size(1231, 459);
             this.crystalReportViewer1.TabIndex = 2;
             // 
             // button1
@@ -195,13 +192,27 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Load Report";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.loadReport);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(923, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(151, 32);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "Load Excel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.loadData);
             // 
             // Employee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1255, 568);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.Info;
+            this.ClientSize = new System.Drawing.Size(1255, 751);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.crystalReportViewer1);
             this.Controls.Add(this.dataGridView1);
@@ -236,5 +247,6 @@
         private Reps.Emp_Rep Emp_Rep1;
         private Employee_Rep Employee_Rep1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

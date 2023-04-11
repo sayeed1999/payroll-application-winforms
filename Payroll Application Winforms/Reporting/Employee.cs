@@ -20,15 +20,20 @@ namespace Payroll_Application_Winforms.Reporting
         private void Employee_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'employeeDs.Employee' table. You can move, or remove it, as needed.
-            this.employeeTableAdapter.Fill(this.employeeDs.Employee);
+            // this.employeeTableAdapter.Fill(this.employeeDs.Employee);
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void loadReport(object sender, EventArgs e)
         {
             Reps.Emp_Rep emp_Rep = new Reps.Emp_Rep();
             emp_Rep.SetDataSource(this.employeeDs);
             this.crystalReportViewer1.ReportSource = emp_Rep;
+        }
+
+        private void loadData(object sender, EventArgs e)
+        {
+            this.employeeTableAdapter.Fill(this.employeeDs.Employee);
         }
     }
 }

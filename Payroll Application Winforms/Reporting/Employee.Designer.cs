@@ -218,5 +218,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn addressDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fileNameDataGridViewTextBoxColumn;
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
+        private Reps.Emp_Rep Emp_Rep1;
     }
 }

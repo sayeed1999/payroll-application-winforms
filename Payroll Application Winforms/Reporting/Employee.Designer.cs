@@ -46,17 +46,17 @@
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.Employee_Rep1 = new Payroll_Application_Winforms.Employee_Rep();
             this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDsBindingSource)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -70,13 +70,15 @@
             this.bankDetailsDataGridViewTextBoxColumn,
             this.addressDataGridViewTextBoxColumn,
             this.fileNameDataGridViewTextBoxColumn});
+            this.tableLayoutPanel1.SetColumnSpan(this.dataGridView1, 4);
             this.dataGridView1.DataSource = this.employeeBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 50);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 78);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(1231, 253);
+            this.dataGridView1.Size = new System.Drawing.Size(1249, 219);
             this.dataGridView1.TabIndex = 0;
             // 
             // empIdDataGridViewTextBoxColumn
@@ -173,32 +175,56 @@
             // crystalReportViewer1
             // 
             this.crystalReportViewer1.ActiveViewIndex = 0;
-            this.crystalReportViewer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.crystalReportViewer1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tableLayoutPanel1.SetColumnSpan(this.crystalReportViewer1, 4);
             this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(12, 309);
+            this.crystalReportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.crystalReportViewer1.Location = new System.Drawing.Point(3, 303);
             this.crystalReportViewer1.Name = "crystalReportViewer1";
             this.crystalReportViewer1.ReportSource = "C:\\Development\\Payroll Application Winforms\\Payroll Application Winforms\\Reps\\Emp" +
     "_Rep.rpt";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(1231, 459);
+            this.crystalReportViewer1.Size = new System.Drawing.Size(1249, 445);
             this.crystalReportViewer1.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1092, 12);
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(1069, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(151, 32);
+            this.button1.Size = new System.Drawing.Size(183, 69);
             this.button1.TabIndex = 3;
             this.button1.Text = "Load Report";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.loadReport);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.Controls.Add(this.crystalReportViewer1, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button2, 2, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1255, 751);
+            this.tableLayoutPanel1.TabIndex = 5;
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(923, 12);
+            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button2.Location = new System.Drawing.Point(881, 3);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(151, 32);
+            this.button2.Size = new System.Drawing.Size(182, 69);
             this.button2.TabIndex = 4;
             this.button2.Text = "Load Excel";
             this.button2.UseVisualStyleBackColor = true;
@@ -208,14 +234,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
             this.ClientSize = new System.Drawing.Size(1255, 751);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.crystalReportViewer1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Employee";
             this.Text = "Employee";
             this.Load += new System.EventHandler(this.Employee_Load);
@@ -223,6 +244,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDsBindingSource)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -247,6 +269,7 @@
         private Reps.Emp_Rep Emp_Rep1;
         private Employee_Rep Employee_Rep1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button button2;
     }
 }

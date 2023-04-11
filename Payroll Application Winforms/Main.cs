@@ -56,5 +56,13 @@ namespace Payroll_Application_Winforms
             form.StartPosition = FormStartPosition.CenterScreen;
             form.Show();
         }
+
+        private void employeeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Report.EmployeeReporting form = new Report.EmployeeReporting();
+            form.MdiParent = this;
+            form.StartPosition = FormStartPosition.CenterScreen;
+            form.Show();
+        }
     }
 }

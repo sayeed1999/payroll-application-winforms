@@ -34,6 +34,8 @@
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.employeeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +45,8 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.userToolStripMenuItem,
-            this.employeeToolStripMenuItem});
+            this.employeeToolStripMenuItem,
+            this.reportingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1054, 33);
@@ -84,9 +87,24 @@
             // employeeRegisterToolStripMenuItem
             // 
             this.employeeRegisterToolStripMenuItem.Name = "employeeRegisterToolStripMenuItem";
-            this.employeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.employeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(260, 34);
             this.employeeRegisterToolStripMenuItem.Text = "Employee Register";
             this.employeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.employeeRegisterToolStripMenuItem_Click);
+            // 
+            // reportingToolStripMenuItem
+            // 
+            this.reportingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.employeeToolStripMenuItem1});
+            this.reportingToolStripMenuItem.Name = "reportingToolStripMenuItem";
+            this.reportingToolStripMenuItem.Size = new System.Drawing.Size(106, 29);
+            this.reportingToolStripMenuItem.Text = "Reporting";
+            // 
+            // employeeToolStripMenuItem1
+            // 
+            this.employeeToolStripMenuItem1.Name = "employeeToolStripMenuItem1";
+            this.employeeToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.employeeToolStripMenuItem1.Text = "Employee";
+            this.employeeToolStripMenuItem1.Click += new System.EventHandler(this.employeeToolStripMenuItem1_Click);
             // 
             // Main
             // 
@@ -116,5 +134,7 @@
         private System.Windows.Forms.ToolStripMenuItem changePasswordToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeeRegisterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reportingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem employeeToolStripMenuItem1;
     }
 }

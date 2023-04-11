@@ -33,8 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSet\EmployeeDs.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeeDs.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Employee\EmployeeRegister.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +77,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\EmployeeReporting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\EmployeeReporting.Designer.cs">
+      <DependentUpon>EmployeeReporting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reps\Employee_Rep.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee_Rep.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="User\ChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +119,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Report\EmployeeReporting.resx">
+      <DependentUpon>EmployeeReporting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reps\Employee_Rep.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Employee_Rep.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="User\ChangePassword.resx">
       <DependentUpon>ChangePassword.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +133,17 @@
       <DependentUpon>UserRegister.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="DataSet\EmployeeDs.xsc">
+      <DependentUpon>EmployeeDs.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet\EmployeeDs.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EmployeeDs.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet\EmployeeDs.xss">
+      <DependentUpon>EmployeeDs.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,6 +165,9 @@
       <Project>{96532e54-3958-4a89-bc47-189f51e7f8a0}</Project>
       <Name>Payroll.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
